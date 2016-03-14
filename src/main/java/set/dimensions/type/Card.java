@@ -128,8 +128,8 @@ public class Card implements Comparable<Card>{
 
     @Override
     public String toString() {
-        return "Card{" +
-                Arrays.toString(valuesByDimension) +
-                '}';
+        return " Card" +
+                Arrays.toString(valuesByDimension);
+
     }
 }

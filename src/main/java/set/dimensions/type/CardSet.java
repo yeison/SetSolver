@@ -58,8 +58,8 @@ public class CardSet {
 
     @Override
     public String toString() {
-        return "CardSet[" +
-                "cards=" + cards +
-                ']';
+        return "\nCardSet{" +
+                cards +
+                "}\n";
     }
 }

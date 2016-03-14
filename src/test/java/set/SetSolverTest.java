@@ -29,6 +29,8 @@ public class SetSolverTest {
 
         Set<CardSet> possibleSets = getPossibleSets(cards, 4, 4);
 
+        System.out.println(possibleSets);
+
         Assert.assertEquals(1, possibleSets.size());
     }
 

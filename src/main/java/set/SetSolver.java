@@ -33,8 +33,12 @@ import static set.dimensions.type.Card.newCard;
  */
 public class SetSolver {
 
-
     public static void main(String[] args) throws IOException {
+        if(args.length != 1){
+            System.err.println("\nError: Please specify an input filename as the first argument.\n");
+            System.exit(1);
+        }
+
         String fileName = args[0];
 
         LineReader reader = new LineReader(new BufferedReader(new FileReader(fileName)));
@@ -61,6 +65,10 @@ public class SetSolver {
         }
 
         Set<CardSet> possibleSets = getPossibleSets(cards, dims, valuesSize);
+
+        System.out.printf("\nNumber of possible sets: %s\n\n", possibleSets.size());
+
+        System.out.println(possibleSets);
     }
 
     /**
