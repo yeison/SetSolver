@@ -32,4 +32,7 @@ Refer to the file 'set_input_1' for reference.
 
 
 #Analysis
-This solution is optimal for high numbers of input cards, and low number of dimension*value.
+This solution is optimal for high numbers of input cards, and low numbers of dimension*value.
+
+Assuming that 'n' represents the number of cards passed in as input, lets define 'k' as the number of unique cards passed as input.
+Given this definition, the running time of this solution will be better than O(k^2 * d * v)
