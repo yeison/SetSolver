@@ -29,3 +29,7 @@ For example, a card with all 0 values can be specified as:
 0,0,0,0
 
 Refer to the file 'set_input_1' for reference.
+
+
+#Analysis
+This solution is optimal for high numbers of input cards, and low number of dimension*value.
