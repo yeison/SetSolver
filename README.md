@@ -15,7 +15,7 @@ In order to compute other sets, it's necessary to create new input input files. 
 
 The first line must indicate the number of dimensions and the number of values available per dimension, separated by a comma.
 
-#dims,#values
+'#dims,#values'
 
 Every subsequent line specifies the card values, comma-separated.
 
