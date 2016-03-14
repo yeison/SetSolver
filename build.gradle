@@ -1,0 +1,79 @@
+buildscript {
+    repositories {
+        maven {
+            url 'http://notethis.in:8081/artifactory/plugins-release'
+        }
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.0.0"
+    }
+}
+
+allprojects {
+    apply plugin: "com.jfrog.artifactory"
+}
+
+artifactory {
+    contextUrl = "http://notethis.in:8081/artifactory/"   //The base Artifactory URL if not overridden by the publisher/resolver
+
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local' // The Artifactory repository key to publish to
+        }
+        defaults {
+            // Reference to Gradle publications defined in the build script.
+            // This is how we tell the Artifactory Plugin which artifacts should be
+            // published to Artifactory.
+            publications('mavenJava')
+            publishArtifacts = true
+
+            // Publish generated POM files to Artifactory (true by default)
+            publishPom = true
+
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+
+            properties {                                                   //Optional closure to attach properties to artifacts based on a list of artifact patterns per project publication
+                mavenJava 'org.jfrog:*:*:*@*', key1: 'val1'                //The property key1=val1 will be set on all artifacts part of the mavenJava publication and with group org.jfrog
+                all 'org.jfrog:shared:1.?:*@*', key2: 'val2', key3: 'val3' //The properties key2 and key3 will be set on all published artifacts (all publications) with group:artifact:version
+                //equal to org.jfrog:shared:1.?
+            }
+        }
+    }
+
+    resolve {
+        repository {
+            repoKey = 'libs-snapshot'
+            maven = true
+        }
+    }
+}
+
+group 'dev.yeison'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+sourceCompatibility = 1.8
+
+
+dependencies {
+    compile 'ch.qos.logback:logback:0.5'
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    compile 'com.google.guava:guava:19.0'
+    compile 'ch.qos.logback:logback-core:1.1.6'
+
+    compile 'net.openhft:koloboke-impl-jdk8:0.6.8'
+    compile 'net.openhft:koloboke-api-jdk8:0.6.7'
+
+    testCompile(group: 'junit', name: 'junit', version: '4.11')
+}
