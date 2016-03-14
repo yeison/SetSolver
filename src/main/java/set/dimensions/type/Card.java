@@ -125,4 +125,11 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card o) {
         return hashCode() - o.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                Arrays.toString(valuesByDimension) +
+                '}';
+    }
 }

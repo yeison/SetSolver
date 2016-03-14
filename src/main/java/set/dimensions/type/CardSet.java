@@ -55,4 +55,11 @@ public class CardSet {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "CardSet[" +
+                "cards=" + cards +
+                ']';
+    }
 }

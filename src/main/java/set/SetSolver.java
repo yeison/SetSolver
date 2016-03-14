@@ -1,11 +1,15 @@
 package set;
 
+import com.google.common.io.LineReader;
 import net.openhft.koloboke.collect.map.ObjIntMap;
 import net.openhft.koloboke.collect.map.hash.HashObjIntMaps;
 import set.dimensions.type.Card;
 import set.dimensions.type.CardSet;
 import set.dimensions.type.Dimension;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,45 +17,50 @@ import java.util.Set;
 
 import static set.dimensions.type.Card.newCard;
 
+
 /**
- * Created by yeison on 3/12/16.
+ * It turns out that any second card may follow any first card.
+ * Once the second card is selected, there will be a small set
+ * of specific third cards that complete the set. Knowing
+ * this narrows down the problem space significantly because we
+ * only need to perform a cartesian product of the input cards.
+ * Then we can perform O(1) lookups of the specific third card to
+ * validate whether the set is possible given the first two cards.
+ *
+ * This solution runs in O(k^2) where k is the number of unique cards
+ * passed in as input.
+ *
  */
 public class SetSolver {
 
-    /**
-     * It turns out that any second card may follow any first card.
-     * Once the second card is selected, there will be a small set
-     * of specific third cards that complete the set. Knowing
-     * this narrows down the problem space significantly because we
-     * only need to perform a cartesian product of the input cards.
-     * Then we can perform O(1) lookups of the specific third card to
-     * validate whether the set is possible given the first two cards.
-     *
-     * This solution runs in O(k^2) where k is the number of unique cards
-     * passed in as input.
-     *
-     */
 
+    public static void main(String[] args) throws IOException {
+        String fileName = args[0];
 
-    public static void main(String[] args){
+        LineReader reader = new LineReader(new BufferedReader(new FileReader(fileName)));
+
+        String line = reader.readLine();
+
+        String[] dimsValueSize = line.split(",");
+
+        int dims = Integer.valueOf(dimsValueSize[0]);
+        int valuesSize = Integer.valueOf(dimsValueSize[1]);
 
         ArrayList<Card> cards = new ArrayList<>();
 
-        int[] valuesByDimension1 = new int[]{0,0,0,0};
-        int[] valuesByDimension2 = new int[]{1,1,1,1};
-        int[] valuesByDimension3 = new int[]{2,2,2,2};
-        int[] valuesByDimension4 = new int[]{3,3,3,3};
+        for(line = reader.readLine(); line != null; line = reader.readLine()){
+            String[] valuesString = line.split(",");
 
+            int[] values = new int[dims];
 
-        cards.add(newCard(valuesByDimension1));
-        cards.add(newCard(valuesByDimension2));
-        cards.add(newCard(valuesByDimension3));
-        cards.add(newCard(valuesByDimension4));
+            for (int i = 0; i < dims; i++) {
+                values[i] = Integer.valueOf(valuesString[i]);
+            }
 
+            cards.add(newCard(values));
+        }
 
-        Set<CardSet> possibleSets = getPossibleSets(cards, 4, 4);
-
-        System.out.println();
+        Set<CardSet> possibleSets = getPossibleSets(cards, dims, valuesSize);
     }
 
     /**
