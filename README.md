@@ -3,6 +3,8 @@
 #Tests
 See src/test/java/set/SetSolverTest.java for examples of how to run the SetSolver
 
+The tests are not complete by any means. With more time, I would certainly write a much more comprehensive suite of tests.
+
 It is possible to print the sets returned by the SetSolver.getPossibleSets() method in order to gain more insight on the sets produced.
 
 #Command Line
