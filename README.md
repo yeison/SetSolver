@@ -8,7 +8,7 @@ The tests are not complete by any means. With more time, I would certainly write
 It is possible to print the sets returned by the SetSolver.getPossibleSets() method in order to gain more insight on the sets produced.
 
 #Command Line
-Alternatively, run the SetSolver from the command line.  In order to do so, unzip SetSolver-1.0.zip
+Alternatively, run the SetSolver from the command line.  In order to do so, unzip distributions/SetSolver-1.0.zip
 
 In the unzipped folder, run SetSolver as follows:
 
